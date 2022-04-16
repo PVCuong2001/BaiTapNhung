@@ -1,0 +1,76 @@
+int latchPin = 4; // khai báo các chân kết nối thanh ghi dịch
+
+int clockPin = 5;
+
+int dataPin = 3;
+
+int pins [8] = {6, 7, 8, 9, 10, 11, 12, 13}; // các chân cathode chung
+
+byte chu[][8] = {
+  //{~B00000010,~B11111111,~B00000000,~B00000000,~B00000000,~B00000000,~B00000000,~B00000000},
+  
+//  {~0xFF,~0xFF,~0xF7,~0xFB,~0x81,~0xFF,~0xFF,~0xFF},
+ // {~0xFF,~0xFF,~0xBB,~0x9D,~0xAD,~0xB3,~0xFF,~0xFF},
+  //{0xFF,0xFF,0x81,0xBD,0xDD,0xA1,0x7F,0xFF},
+  
+  {~0xFF,~0xFF,~0x81,~0xBD,~0xDD,~0xA1,~0x7F,~0xFF}, //Q
+  {~0xFF,~0xFF,~0x81,~0xBF,~0xBF,~0x81,~0xFF,~0xFF}, //U
+    {~0xFF,~0xFF,~0x83,~0xED,~0xED,~0x83,~0xFF,~0xFF},//A
+    {~0xFF,~0xFF,~0x81,~0xF7,~0xEF,~0x81,~0xFF,~0xFF},//N
+    {~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF},//space   
+     {~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF}, //temp
+};
+
+
+void setup() {
+  Serial.begin(9600); // dữ liệu code đã lập trình từ máy tính nạp vào Arduino với tốc độ 9600 baud rate
+  pinMode(latchPin, OUTPUT); // cấu hình các chân là ngõ ra
+  pinMode(clockPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);
+  for (int i = 0; i < 8; i++) { // vòng lặp để cấu hình các chân cathode chung
+    pinMode(pins[i], OUTPUT);
+  //  digitalWrite(pins[i], LOW);
+  }
+
+ 
+}
+void chaysangtrai(unsigned int tocdo) {
+  for(int q=0;q<=4;q++){
+        chay1chu(tocdo,q);
+  }
+  
+}
+void chay1chu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              (unsigned int tocdo, int sokitu){
+  for(int h=0;h<8;h++){
+    for(int j=0;j<7;j++){
+      chu[5][j] = chu[5][j+1];
+    }
+    chu[5][7] = chu[sokitu][h];
+    for(int w=0;w<tocdo;w++){
+      hienchu(5);      
+    }
+  }
+}
+void hienchu(int j){
+  for (int i = 0; i< 8; i++) {
+    digitalWrite(latchPin,0);
+    shiftOut(dataPin,clockPin,MSBFIRST,chu[j][i] );
+    digitalWrite(latchPin,1);
+    digitalWrite(pins[i],0);
+    delay(1);
+    digitalWrite(pins[i],1);
+   // delay(1);
+  }
+}
+
+void loop() {
+ // hienchu(0);
+ // for (int i=0;i<=3;i++) {
+ //   for (int j=0;j<=100;j++) {
+ //     hienchu(i);
+ //   }
+//  }
+  
+   chaysangtrai(20);
+
+}
