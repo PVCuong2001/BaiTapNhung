@@ -13,14 +13,14 @@ byte chu[][8] = {
  // {~0xFF,~0xFF,~0xBB,~0x9D,~0xAD,~0xB3,~0xFF,~0xFF},
   //{0xFF,0xFF,0x81,0xBD,0xDD,0xA1,0x7F,0xFF},
   
-  {~0xFF,~0xFF,~0x81,~0xBD,~0xDD,~0xA1,~0x7F,~0xFF}, //Q
+  {~0xFF,~0xC3,~0xBD,~0xBD,~0xBD,~0xBD,~0xBD,~0xFF}, //C
   {~0xFF,~0xFF,~0x81,~0xBF,~0xBF,~0x81,~0xFF,~0xFF}, //U
     {~0xFF,~0xFF,~0x83,~0xED,~0xED,~0x83,~0xFF,~0xFF},//A
     {~0xFF,~0xFF,~0x81,~0xF7,~0xEF,~0x81,~0xFF,~0xFF},//N
     {~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF},//space   
      {~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF,~0xFF}, //temp
 };
-
+int namelength=4;
 
 void setup() {
   Serial.begin(9600); // dữ liệu code đã lập trình từ máy tính nạp vào Arduino với tốc độ 9600 baud rate
@@ -35,7 +35,7 @@ void setup() {
  
 }
 void chaysangtrai(unsigned int tocdo) {
-  for(int q=0;q<=4;q++){
+  for(int q=0;q<=namelength;q++){
         chay1chu(tocdo,q);
   }
   
@@ -43,11 +43,11 @@ void chaysangtrai(unsigned int tocdo) {
 void chay1chu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              (unsigned int tocdo, int sokitu){
   for(int h=0;h<8;h++){
     for(int j=0;j<7;j++){
-      chu[5][j] = chu[5][j+1];
+      chu[namelength+1][j] = chu[namelength+1][j+1];
     }
-    chu[5][7] = chu[sokitu][h];
+    chu[namelength+1][7] = chu[sokitu][h];
     for(int w=0;w<tocdo;w++){
-      hienchu(5);      
+      hienchu(namelength+1);      
     }
   }
 }

@@ -1,0 +1,86 @@
+int R,G,B,D=0;
+int j;
+void setup() {
+  Serial.begin(9600);
+  pinMode (11, OUTPUT); 
+  pinMode (10, OUTPUT); 
+  pinMode (9, OUTPUT); 
+ }
+void loop() {
+  if (Serial.available()>0) {
+  String str = Serial.readString();
+  String s;
+ 
+  for (int i = 0; i<str.length();i++) {
+    if (str[i]=='R') {
+       s="";
+      j=i+1;
+      while (j<str.length()){
+        if (str[j]>='0' && str[j]<='9'){
+          s+=str[j];
+          j++;
+        }
+        else break;
+      }
+      R=s.toInt();
+      if (R>255) R=255;
+    }
+    if (str[i]=='G') {
+      s="";
+      j=i+1;
+      while (j<str.length()){
+        if (str[j]>='0' && str[j]<='9'){
+          s+=str[j];
+          j++;
+        }
+        else break;
+      }
+      G=s.toInt();
+      if (G>255) G=255;
+    }
+    if (str[i]=='B') {
+      s="";
+      j=i+1;
+      while (j<str.length()){
+        if (str[j]>='0' && str[j]<='9'){
+          s+=str[j];
+          j++;
+        }
+        else break;
+      }
+      B=s.toInt();
+      if (B>255) B=255;
+    }
+    if (str[i]=='D') {
+      s="";
+      j=i+1;
+      while (j<str.length()){
+        if (str[j]>='0' && str[j]<='9'){
+          s+=str[j];
+          j++;
+        }
+        else break;
+      }
+      D=s.toInt();
+      //if (B>255) B=255;
+    }
+        }
+  Serial.println(R);
+  Serial.println(G);
+  Serial.println(B);
+  Serial.println(D);
+  analogWrite(11,R);
+  analogWrite(10,G);
+  analogWrite(9,B);
+  if (D>0) {
+  delay(D);
+    analogWrite(11,0);
+    analogWrite(10,0);
+    analogWrite(9,0);
+    D=0;
+    R=0;
+    G=0;
+    B=0;
+  }
+  }
+}
