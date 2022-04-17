@@ -1,0 +1,72 @@
+#include "DHT.h"  
+#include <LiquidCrystal.h>
+const int DHTPIN = 9;       //Đọc dữ liệu từ DHT11 ở chân 2 trên mạch Arduino
+const int DHTTYPE = DHT11;  //Khai báo loại cảm biến, có 2 loại là DHT11 và DHT22
+const int BUTTON = 8;
+const int LED = 13;
+DHT dht(DHTPIN, DHTTYPE);
+ 
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+float temp,voltValue,digitalValue=0;
+int check=1;
+int denLed=1;
+unsigned long timer = 0;
+void setup() {
+ 
+  Serial.begin(9600);
+
+  lcd.begin(16, 2);
+  dht.begin();   
+  pinMode(LED,OUTPUT);
+  digitalWrite(LED,HIGH);
+}
+
+void loop() {
+    Serial.println(check); 
+    Serial.println("aaaaa"); 
+    Serial.println(denLed); 
+  if (digitalRead(BUTTON)==HIGH) {
+    delay(200);
+    timer=millis();
+    check=-check; // do C <-> do F
+    while (millis()-timer<300) {
+      if (digitalRead(BUTTON)==HIGH) {
+        denLed=-denLed; //bat den <-> tat den
+        break;
+      }
+    }
+  }
+  delay(50);
+  lcd.clear();
+  float temp = dht.readTemperature(); //Đọc nhiệt độ
+  Serial.print("Nhiet do: ");
+  Serial.println(temp);               //Xuất nhiệt độ
+//
+//  if (denLed==1){
+//    //bat den
+//    digitalWrite(LED,HIGH);
+//    lcd.display();
+//  }
+ // else 
+  if (denLed==-1) {
+    // tat den
+    digitalWrite(LED,LOW);
+    lcd.noDisplay();;
+  }
+  lcd.print("Nhiet do");  
+  lcd.setCursor(0, 1);
+  if (check==1){
+    //do C
+    lcd.print(temp);
+    lcd.print(" do C");
+  }
+  else if (check==-1) {
+    //do F
+    temp=temp*1.8+32;
+    lcd.print(temp);
+    lcd.print(" do F");
+  }
+
+
+}
