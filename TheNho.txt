@@ -110,36 +110,36 @@ void WriteFile(bool isOverride)
 void checkToWriteFile()
 {
   //ghi 10s 1 lan
-//  if (current_second != old_second)
-//  {
-//    if ((current_second > old_second && current_second - old_second == 10) || (current_second < old_second && current_second + 60 - old_second == 10))
-//    {
-//      Serial.println("Write file");
-//      WriteFile(true);//true->ghi de, false->ghi them
-//      old_hour = current_hour;
-//      old_minute = current_minute;
-//      old_second = current_second;
-//      old_day = current_day;
-//      old_month = current_month;
-//      old_year = current_year;
-//      old_wday = current_wday;
-//      old_Temp = current_Temp;
-//    }
-//  }
+  if (current_second != old_second)
+  {
+    if ((current_second > old_second && current_second - old_second == 10) || (current_second < old_second && current_second + 60 - old_second == 10))
+    {
+      Serial.println("Write file");
+      WriteFile(true);//true->ghi de, false->ghi them
+      old_hour = current_hour;
+      old_minute = current_minute;
+      old_second = current_second;
+      old_day = current_day;
+      old_month = current_month;
+      old_year = current_year;
+      old_wday = current_wday;
+      old_Temp = current_Temp;
+    }
+  }
   //ghi khi nhiet do thay doi
-   if (current_Temp != old_Temp)
-   {
-     Serial.println("Write file");
-     WriteFile(false); //true->ghi de, false->ghi them
-     old_hour = current_hour;
-     old_minute = current_minute;
-     old_second = current_second;
-     old_day = current_day;
-     old_month = current_month;
-     old_year = current_year;
-     old_wday = current_wday;
-     old_Temp = current_Temp;
-   }
+  // if (current_Temp != old_Temp)
+  // {
+  //   Serial.println("Write file");
+  //   WriteFile(true);
+  //   old_hour = current_hour;
+  //   old_minute = current_minute;
+  //   old_second = current_second;
+  //   old_day = current_day;
+  //   old_month = current_month;
+  //   old_year = current_year;
+  //   old_wday = current_wday;
+  //   old_Temp = current_Temp;
+  // }
 }
 
 /* cài đặt thời gian cho DS1307 */
