@@ -1,0 +1,19 @@
+Trong cảm biến RTC có 5 chân, nhưng mình chỉ sử dụng 4 chân
+- Chân vcc: nối với 5V
+- Chân GND: nối với đất
+- Chân SDA: nối SDA trong arduino
+- Chân SCL: nối với SCL trong Arduino
+- Chân DS: bỏ, không nối
+
+Trong cảm biến đọc thẻ SD có 6 chân: 
+- Chân GND: nối với 5V
+- Chân VCC: nối đất
+- Chân MISO: D12
+- Chân MOSI: D11
+- Chân SCK: D13
+- Chân CS: D10
+
+Cảm biến nhiệt độ:
+- Chân signal: D3 
+- Chân GND
+- Chân VCC
