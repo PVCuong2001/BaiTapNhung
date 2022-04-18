@@ -19,6 +19,7 @@ void setup() {
   lcd.begin(16, 2);
   dht.begin();   
   pinMode(LED,OUTPUT);
+  pinMode(BUTTON,INPUT);
   digitalWrite(LED,HIGH);
 }
 
