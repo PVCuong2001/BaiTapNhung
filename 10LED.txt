@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-int LED_INDEX[] = {3, 5, 6, 9, 10, 11, A0, A1, A2, A3};
+int LED_INDEX[] = {3, 5, 6, 9, 10, 11, 7, 8, 12, 13};
 int numLed = 10;
 
 void setup()
